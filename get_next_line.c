@@ -40,7 +40,7 @@ char	*get_next_line(int fd)
 char	*read_file(char *save, int fd)
 {
 	char	*buf;
-	size_t	nread;
+	ssize_t	nread;
 	char	*temp;
 
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
