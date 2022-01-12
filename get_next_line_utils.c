@@ -49,7 +49,7 @@ char	*ft_strdup(const char *s1)
 {
 	char	*s2;
 
-	s2 = (char *)malloc((ft_strlen(s1) + 1) * sizeof(char));
+	s2 = malloc(ft_strlen(s1) + 1);
 	if (s2 == NULL)
 		return (NULL);
 	ft_strlcpy(s2, s1, ft_strlen(s1) + 1);
@@ -66,7 +66,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (ft_strdup(s2));
 	if (s2 == NULL)
 		return (ft_strdup(s1));
-	s3 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	s3 = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (s3 == NULL)
 		return (NULL);
 	ft_strlcpy(s3, s1, ft_strlen(s1) + 1);

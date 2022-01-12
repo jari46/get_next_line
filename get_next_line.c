@@ -39,11 +39,11 @@ char	*read_file(char *save, int fd)
 	if (buf == NULL)
 		return (NULL);
 	nread = 0;
-	while (save == NULL || !ft_strchr(save, '\n')
+	while (save == NULL || !ft_strchr(save, '\n'))
 	{
 		nread = read(fd, buf, BUFFER_SIZE);
 		if (nread <= 0)
-			break;
+			break ;
 		temp = save;
 		buf[nread] = '\0';
 		save = ft_strjoin(temp, buf);
