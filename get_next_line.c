@@ -4,7 +4,6 @@ char	*get_next_line(int fd)
 {
 	char		*line;
 	static char	*save;
-	char		*temp;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
@@ -16,12 +15,14 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	line = get_line(save);
-	if (line == NULL || reset_save(&save, ft_strlen(line)) == NULL)
+	if (line == NULL)
 	{
 		free(save);
-		save == NULL;
+		save = NULL;
 		return (NULL);
 	}
+	if (reset_save(&save, ft_strlen(line)) == NULL)
+		return (NULL);
 	return (line);
 }
 
@@ -42,7 +43,7 @@ char	*read_file(char *save, int fd)
 			break ;
 		temp = save;
 		buf[nread] = '\0';
-		save = add_buf(save, buf);
+		save = add_buf(temp, buf);
 		free(temp);
 	}
 	free(buf);
@@ -75,14 +76,16 @@ char	*get_line(char *save)
 char	*reset_save(char **save, int offset)
 {
 	char	*temp;
-	char	*new;
 
 	temp = *save;
-	new = *save + offset;
-	*save = malloc(ft_strlen(new) + 1);
-	if (save == NULL)
+	*save = malloc(ft_strlen(temp + offset) + 1);
+	if (*save == NULL)
+	{
+		free(temp);
+		temp = NULL;
 		return (NULL);
-	ft_strlcpy(save, new, ft_strlen(new) + 1);
+	}
+	ft_strlcpy(*save, temp + offset, ft_strlen(temp + offset) + 1);
 	free(temp);
 	temp = NULL;
 	return (*save);

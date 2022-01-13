@@ -1,5 +1,6 @@
 #include <unistd.h>  //read
 #include <stdlib.h> //malloc, free
+#include <stdbool.h>
 
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 10

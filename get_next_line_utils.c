@@ -6,7 +6,7 @@ char	*add_buf(char const *save, char const *buf)
 
 	if (buf == NULL)
 		return (NULL);
-	else if (save == NULL)
+	else if (save == NULL && buf)
 	{
 		new = malloc(ft_strlen(buf) + 1);
 		if (new == NULL)
