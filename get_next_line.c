@@ -9,24 +9,20 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	save = read_file(save, fd);
-	if (save == NULL)
-		return (NULL);
-	if (*save)
+	if (save == NULL || *save == '\0')
 	{
-		line = get_line(save);
-		if (line == NULL)
-			return (NULL);
-		temp = save;
-		save = ft_strdup(save + ft_strlen(line));
-		free(temp);
-		temp = NULL;
-		if (save == NULL)
-			return (NULL);
-		return (line);
+		free(save);
+		save = NULL;
+		return (NULL);
 	}
-	free(save);
-	save = NULL;
-	return (NULL);
+	line = get_line(save);
+	if (line == NULL || reset_save(&save, ft_strlen(line)) == NULL)
+	{
+		free(save);
+		save == NULL;
+		return (NULL);
+	}
+	return (line);
 }
 
 char	*read_file(char *save, int fd)
@@ -46,7 +42,7 @@ char	*read_file(char *save, int fd)
 			break ;
 		temp = save;
 		buf[nread] = '\0';
-		save = ft_strjoin(temp, buf);
+		save = add_buf(save, buf);
 		free(temp);
 	}
 	free(buf);
@@ -74,4 +70,20 @@ char	*get_line(char *save)
 		return (NULL);
 	ft_strlcpy(line, save, len + 1);
 	return (line);
+}
+
+char	*reset_save(char **save, int offset)
+{
+	char	*temp;
+	char	*new;
+
+	temp = *save;
+	new = *save + offset;
+	*save = malloc(ft_strlen(new) + 1);
+	if (save == NULL)
+		return (NULL);
+	ft_strlcpy(save, new, ft_strlen(new) + 1);
+	free(temp);
+	temp = NULL;
+	return (*save);
 }

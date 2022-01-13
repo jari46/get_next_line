@@ -45,31 +45,24 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (ft_strlen(src));
 }
 
-char	*ft_strdup(const char *s1)
+char	*add_buf(char const *save, char const *buf)
 {
-	char	*s2;
+	char	*new;
 
-	s2 = malloc(ft_strlen(s1) + 1);
-	if (s2 == NULL)
+	if (buf == NULL)
 		return (NULL);
-	ft_strlcpy(s2, s1, ft_strlen(s1) + 1);
-	return (s2);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*s3;
-
-	if (s1 == NULL && s2 == NULL)
+	else if (save == NULL)
+	{
+		new = malloc(ft_strlen(save) + 1);
+		if (new == NULL)
+			return (NULL);
+		strlcpy(new, save, ft_strlen(save) + 1);
+		return (new);
+	}
+	new = malloc(ft_strlen(save) + ft_strlen(buf) + 1);
+	if (new == NULL)
 		return (NULL);
-	if (s1 == NULL)
-		return (ft_strdup(s2));
-	if (s2 == NULL)
-		return (ft_strdup(s1));
-	s3 = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (s3 == NULL)
-		return (NULL);
-	ft_strlcpy(s3, s1, ft_strlen(s1) + 1);
-	ft_strlcpy(s3 + ft_strlen(s1), s2, ft_strlen(s2) + 1);
-	return (s3);
+	ft_strlcpy(new, save, ft_strlen(save) + 1);
+	ft_strlcpy(new + ft_strlen(save), buf, ft_strlen(buf) + 1);
+	return (new);
 }
