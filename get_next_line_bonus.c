@@ -5,30 +5,50 @@ char	*get_next_line(int fd)
 	char			*line;
 	static t_list	head;
 	t_list			*lst;
-	char			*temp;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	lst = find_node(&head, fd); //노드를 찾는다 없으면 새로 할당
+	lst = get_node(&head, fd);
 	if (lst == NULL)
 		return (NULL);
-	lst->save = read_file(fd, lst->save); //save를 재할당해준다
-	if (lst->save == NULL)
-		return (NULL);
-	else if (*(lst->save)) //save에 뭔가가 들어있다면
+	lst->save = read_file(fd, lst->save);
+	if (lst->save == NULL || *(lst->save) == '\0')
 	{
-		line = get_line(lst->save);
-		if (line == NULL)
-		{
-			ft_lstdelone(lst);
-			return (NULL);
-		}
-		reset_save(&(lst->save), ft_strlen(line));
-		return (line);
+		free_node(&lst);
+		return (NULL);
+	} 
+	line = get_line(lst->save);
+	if (line == NULL || reset_save(&lst, ft_strlen(line)) == NULL)
+	{
+		free_node(&lst);
+		return (NULL);
 	}
-	free(lst->save); //빈문자열일 때 NULL로 만들어주자.
-	lst->save = NULL;
-	return (NULL);
+	return (line);
+}
+
+t_list	*get_node(t_list *head, int fd)
+{
+	t_list	*lst;
+	t_list	*new;
+
+	if (head->next)
+	{
+		lst = head->next;
+		while (lst)
+		{
+			if (lst->fd == fd)
+				return (lst);
+			else
+				lst = lst->next;
+		}
+	}
+	new = malloc(sizeof(t_list));
+	if (new == NULL)
+		return (NULL);
+	new->fd = fd;
+	new->next = head->next;
+	head->next = new;
+	return (new);
 }
 
 char	*read_file(char *save, int fd)
@@ -76,4 +96,17 @@ char	*get_line(char *save)
 		return (NULL);
 	ft_strlcpy(line, save, len + 1);
 	return (line);
+}
+
+char	*reset_save(t_list **lst, int offset)
+{
+	char	*temp;
+	char	*save;
+
+	save = (*lst)->save;
+	temp = save;
+	save = ft_strdup(save + offset);
+	free(temp);
+	temp = NULL;
+	return (save);
 }
