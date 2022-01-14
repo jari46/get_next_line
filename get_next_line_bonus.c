@@ -31,27 +31,26 @@ char	*get_next_line(int fd)
 t_list	*get_node(t_list *head, int fd)
 {
 	t_list	*node;
-	t_list	*new;
 
-	if (head->next)
+	node = head->next;
+	while (node)
 	{
-		node = head->next;
-		while (node)
-		{
-			if (node->fd == fd)
-				return (node);
-			else
-				node = node->next;
-		}
+		if (node->fd == fd)
+			return (node);
+		else
+			node = node->next;
 	}
-	new = malloc(sizeof(t_list));
-	if (new == NULL)
+	node = malloc(sizeof(t_list));
+	if (node == NULL)
 		return (NULL);
-	new->fd = fd;
-	new->prev = head;
-	new->next = head->next;
-	head->next = new;
-	return (new);
+	node->fd = fd;
+	node->save = NULL;
+	node->prev = head;
+	node->next = head->next;
+	if (head->next)
+		head->next->prev = node;
+	head->next = node;
+	return (node);
 }
 
 char	*read_file(char *save, int fd)
@@ -71,7 +70,7 @@ char	*read_file(char *save, int fd)
 			break ;
 		temp = save;
 		buf[nread] = '\0';
-		save = add_buf(save, buf);
+		save = realloc_save(save, buf);
 		free(temp);
 	}
 	free(buf);

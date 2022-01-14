@@ -2,7 +2,7 @@
 # include <stdlib.h>
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 42
 #endif
 
 typedef struct s_list
@@ -19,7 +19,7 @@ char	*read_file(char *save, int fd);
 char	*get_line(char *save);
 char	*reset_save(t_list **node, int offset);
 void	free_node(t_list **node);
-char	*add_buf(char const *save, char const *buf);
+char	*realloc_save(char const *save, char const *buf);
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);

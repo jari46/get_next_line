@@ -12,7 +12,7 @@ void	free_node(t_list **node)
 	*node = NULL;
 }
 
-char	*add_buf(char const *save, char const *buf)
+char	*realloc_save(char const *save, char const *buf)
 {
 	char	*new;
 
