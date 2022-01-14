@@ -4,48 +4,51 @@ char	*get_next_line(int fd)
 {
 	char			*line;
 	static t_list	head;
-	t_list			*lst;
+	t_list			*node;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	lst = get_node(&head, fd);
-	if (lst == NULL)
+	node = get_node(&head, fd);
+	if (node == NULL)
 		return (NULL);
-	lst->save = read_file(fd, lst->save);
-	if (lst->save == NULL || *(lst->save) == '\0')
+	node->save = read_file(node->save, fd);
+	if (node->save == NULL || *(node->save) == '\0')
 	{
-		free_node(&lst);
+		free_node(&node);
 		return (NULL);
 	} 
-	line = get_line(lst->save);
-	if (line == NULL || reset_save(&lst, ft_strlen(line)) == NULL)
+	line = get_line(node->save);
+	if (line == NULL)
 	{
-		free_node(&lst);
+		free_node(&node);
 		return (NULL);
 	}
+	if (reset_save(&node, ft_strlen(line)) == NULL)
+		return (NULL);
 	return (line);
 }
 
 t_list	*get_node(t_list *head, int fd)
 {
-	t_list	*lst;
+	t_list	*node;
 	t_list	*new;
 
 	if (head->next)
 	{
-		lst = head->next;
-		while (lst)
+		node = head->next;
+		while (node)
 		{
-			if (lst->fd == fd)
-				return (lst);
+			if (node->fd == fd)
+				return (node);
 			else
-				lst = lst->next;
+				node = node->next;
 		}
 	}
 	new = malloc(sizeof(t_list));
 	if (new == NULL)
 		return (NULL);
 	new->fd = fd;
+	new->prev = head;
 	new->next = head->next;
 	head->next = new;
 	return (new);
@@ -68,7 +71,7 @@ char	*read_file(char *save, int fd)
 			break ;
 		temp = save;
 		buf[nread] = '\0';
-		save = ft_strjoin(temp, buf);
+		save = add_buf(save, buf);
 		free(temp);
 	}
 	free(buf);
@@ -98,15 +101,21 @@ char	*get_line(char *save)
 	return (line);
 }
 
-char	*reset_save(t_list **lst, int offset)
+char	*reset_save(t_list **node, int offset)
 {
 	char	*temp;
-	char	*save;
 
-	save = (*lst)->save;
-	temp = save;
-	save = ft_strdup(save + offset);
+	temp = (*node)->save;
+	(*node)->save = malloc(ft_strlen(temp + offset) + 1);
+	if ((*node)->save == NULL)
+	{
+		free(temp);
+		temp = NULL;
+		free_node(node);
+		return (NULL);
+	}
+	ft_strlcpy((*node)->save, temp + offset, ft_strlen(temp + offset) + 1);
 	free(temp);
 	temp = NULL;
-	return (save);
+	return ((*node)->save);
 }
