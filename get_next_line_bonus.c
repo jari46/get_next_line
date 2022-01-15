@@ -53,7 +53,7 @@ t_list	*get_node(t_list *head, int fd)
 	return (node);
 }
 
-char	*read_file(char *save, int fd)
+char	*read_file(char const *save, int fd)
 {
 	char	*buf;
 	ssize_t	nread;
@@ -70,7 +70,7 @@ char	*read_file(char *save, int fd)
 			break ;
 		temp = save;
 		buf[nread] = '\0';
-		save = realloc_save(save, buf);
+		save = append_buf(save, buf);
 		free(temp);
 	}
 	free(buf);
@@ -80,7 +80,7 @@ char	*read_file(char *save, int fd)
 	return (save);
 }
 
-char	*get_line(char *save)
+char	*get_line(char const *save)
 {
 	char	*line;
 	size_t	len;
@@ -100,7 +100,7 @@ char	*get_line(char *save)
 	return (line);
 }
 
-char	*reset_save(t_list **node, int offset)
+char	*reset_save(t_list **node, size_t offset)
 {
 	char	*temp;
 

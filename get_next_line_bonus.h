@@ -18,13 +18,13 @@ typedef struct s_list
 
 char	*get_next_line(int fd);
 t_list	*get_node(t_list *head, int fd);
-char	*read_file(char *save, int fd);
-char	*get_line(char *save);
-char	*reset_save(t_list **node, int offset);
+char	*read_file(char const *save, int fd);
+char	*get_line(char const *save);
+char	*reset_save(t_list **node, size_t offset);
 void	free_node(t_list **node);
-char	*realloc_save(char const *save, char const *buf);
-size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*append_buf(char const *save, char const *buf);
+size_t	ft_strlen(char const *s);
+char	*ft_strchr(char const *s, int c);
+size_t	ft_strlcpy(char *dst, char const *src, size_t dstsize);
 
 #endif
