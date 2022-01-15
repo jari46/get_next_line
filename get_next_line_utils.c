@@ -22,7 +22,7 @@ char	*add_buf(char const *save, char const *buf)
 	return (new);
 }
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(char const *s)
 {
 	size_t	len;
 
@@ -35,7 +35,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char const *s, int c)
 {
 	while (*s)
 	{
@@ -50,7 +50,7 @@ char	*ft_strchr(const char *s, int c)
 		return (NULL);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcpy(char *dst, char const *src, size_t dstsize)
 {
 	size_t	i;
 
