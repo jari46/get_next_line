@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/17 20:30:30 by yehan             #+#    #+#             */
+/*   Updated: 2022/01/17 20:30:35 by yehan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
@@ -16,7 +28,7 @@ char	*get_next_line(int fd)
 	{
 		free_node(&node);
 		return (NULL);
-	} 
+	}
 	line = get_line(node->save);
 	if (line == NULL)
 	{
