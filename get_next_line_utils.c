@@ -1,6 +1,6 @@
 #include "get_next_line.h"
 
-char	*add_buf(char const *save, char const *buf)
+char	*append_buf(char const *save, char const *buf)
 {
 	char	*new;
 

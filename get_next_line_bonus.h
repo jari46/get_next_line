@@ -5,7 +5,7 @@
 # include <stdlib.h>
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 10
+# define BUFFER_SIZE 1000
 #endif
 
 typedef struct s_list
@@ -18,7 +18,7 @@ typedef struct s_list
 
 char	*get_next_line(int fd);
 t_list	*get_node(t_list *head, int fd);
-char	*read_file(char const *save, int fd);
+char	*read_file(char *save, int fd);
 char	*get_line(char const *save);
 char	*reset_save(t_list **node, size_t offset);
 void	free_node(t_list **node);

@@ -26,7 +26,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-char	*read_file(char const *save, int fd)
+char	*read_file(char *save, int fd)
 {
 	char		*buf;
 	ssize_t		nread;
@@ -43,7 +43,7 @@ char	*read_file(char const *save, int fd)
 			break ;
 		temp = save;
 		buf[nread] = '\0';
-		save = add_buf(temp, buf);
+		save = append_buf(temp, buf);
 		free(temp);
 	}
 	free(buf);
@@ -55,7 +55,7 @@ char	*read_file(char const *save, int fd)
 
 char	*get_line(char const *save)
 {
-	char const	*line;
+	char		*line;
 	size_t		len;
 
 	if (ft_strchr(save, '\n'))
@@ -73,9 +73,9 @@ char	*get_line(char const *save)
 	return (line);
 }
 
-char	*reset_save(char const **save, size_t offset)
+char	*reset_save(char **save, size_t offset)
 {
-	char const	*temp;
+	char	*temp;
 
 	temp = *save;
 	*save = malloc(ft_strlen(temp + offset) + 1);

@@ -53,7 +53,7 @@ t_list	*get_node(t_list *head, int fd)
 	return (node);
 }
 
-char	*read_file(char const *save, int fd)
+char	*read_file(char *save, int fd)
 {
 	char	*buf;
 	ssize_t	nread;
