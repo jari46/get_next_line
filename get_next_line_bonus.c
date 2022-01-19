@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:30:30 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/20 08:19:29 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/20 08:30:28 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_next_line(int fd)
 		del_node(&node);
 		return (NULL);
 	}
-	if (set_remains(&node, ft_strlen(line)) == NULL)
+	if (set_remains(&node, ft_strlen(line)) == false)
 		return (NULL);
 	return (line);
 }
@@ -69,8 +69,8 @@ char	*read_iter(char *save, int fd)
 {
 	char	*buf;
 	ssize_t	nread;
-	char	*new;
 	char	*temp;
+	char	*new;
 
 	buf = malloc(BUFFER_SIZE + 1);
 	if (buf == NULL)
@@ -96,8 +96,8 @@ char	*read_iter(char *save, int fd)
 
 char	*get_line(char const *save)
 {
-	char	*line;
 	size_t	len;
+	char	*line;
 
 	if (ft_strchr(save, '\n'))
 	{
@@ -114,7 +114,7 @@ char	*get_line(char const *save)
 	return (line);
 }
 
-char	*set_remains(t_list **node, size_t offset)
+bool	set_remains(t_list **node, size_t offset)
 {
 	char	*temp;
 
@@ -125,10 +125,10 @@ char	*set_remains(t_list **node, size_t offset)
 		free(temp);
 		temp = NULL;
 		del_node(node);
-		return (NULL);
+		return (false);
 	}
 	ft_strlcpy((*node)->save, temp + offset, ft_strlen(temp + offset) + 1);
 	free(temp);
 	temp = NULL;
-	return ((*node)->save);
+	return (true);
 }

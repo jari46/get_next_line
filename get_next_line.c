@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:29:33 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/20 08:19:27 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/20 08:24:19 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*get_next_line(int fd)
 {
-	char		*line;
 	static char	*s_save;
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
@@ -42,8 +42,8 @@ char	*read_iter(char *s_save, int fd)
 {
 	char		*buf;
 	ssize_t		nread;
-	char		*new;
 	char		*temp;
+	char		*new;
 
 	buf = malloc(BUFFER_SIZE + 1);
 	if (buf == NULL)
@@ -69,8 +69,8 @@ char	*read_iter(char *s_save, int fd)
 
 char	*get_line(char const *s_save)
 {
-	char		*line;
 	size_t		len;
+	char		*line;
 
 	if (ft_strchr(s_save, '\n'))
 	{

@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:23:54 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/20 08:19:26 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/20 08:29:22 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 char	*get_next_line(int fd);
 char	*read_iter(char *s_save, int fd);
 char	*get_line(char const *s_save);
-char	*set_remains(char **s_save, size_t offset);
+bool	set_remains(char **s_save, size_t offset);
 char	*append_buf(char const *s_save, char const *buf);
 size_t	ft_strlen(char const *s);
 char	*ft_strchr(char const *s, int c);
