@@ -6,13 +6,13 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:31:03 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/17 20:31:06 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/20 08:19:24 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	free_node(t_list **node)
+void	del_node(t_list **node)
 {
 	free((*node)->save);
 	(*node)->prev->next = (*node)->next;

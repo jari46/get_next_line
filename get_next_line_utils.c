@@ -6,19 +6,19 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:29:47 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/17 20:29:49 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/20 07:59:48 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*append_buf(char const *save, char const *buf)
+char	*append_buf(char const *s_save, char const *buf)
 {
 	char	*new;
 
 	if (buf == NULL)
 		return (NULL);
-	else if (save == NULL && buf)
+	else if (s_save == NULL && buf)
 	{
 		new = malloc(ft_strlen(buf) + 1);
 		if (new == NULL)
@@ -26,11 +26,11 @@ char	*append_buf(char const *save, char const *buf)
 		ft_strlcpy(new, buf, ft_strlen(buf) + 1);
 		return (new);
 	}
-	new = malloc(ft_strlen(save) + ft_strlen(buf) + 1);
+	new = malloc(ft_strlen(s_save) + ft_strlen(buf) + 1);
 	if (new == NULL)
 		return (NULL);
-	ft_strlcpy(new, save, ft_strlen(save) + 1);
-	ft_strlcpy(new + ft_strlen(save), buf, ft_strlen(buf) + 1);
+	ft_strlcpy(new, s_save, ft_strlen(s_save) + 1);
+	ft_strlcpy(new + ft_strlen(s_save), buf, ft_strlen(buf) + 1);
 	return (new);
 }
 
