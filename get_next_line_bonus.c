@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:30:30 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/17 20:30:35 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/20 08:19:29 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 char	*get_next_line(int fd)
 {
-	char			*line;
 	static t_list	head;
 	t_list			*node;
+	char			*line;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	node = get_node(&head, fd);
 	if (node == NULL)
 		return (NULL);
-	node->save = read_file(node->save, fd);
+	node->save = read_iter(node->save, fd);
 	if (node->save == NULL || *(node->save) == '\0')
 	{
-		free_node(&node);
+		del_node(&node);
 		return (NULL);
 	}
 	line = get_line(node->save);
 	if (line == NULL)
 	{
-		free_node(&node);
+		del_node(&node);
 		return (NULL);
 	}
-	if (reset_save(&node, ft_strlen(line)) == NULL)
+	if (set_remains(&node, ft_strlen(line)) == NULL)
 		return (NULL);
 	return (line);
 }
@@ -65,31 +65,33 @@ t_list	*get_node(t_list *head, int fd)
 	return (node);
 }
 
-char	*read_file(char *save, int fd)
+char	*read_iter(char *save, int fd)
 {
 	char	*buf;
 	ssize_t	nread;
+	char	*new;
 	char	*temp;
 
 	buf = malloc(BUFFER_SIZE + 1);
 	if (buf == NULL)
 		return (NULL);
 	nread = 0;
-	while (save == NULL || !ft_strchr(save, '\n'))
+	new = save;
+	while (new == NULL || !ft_strchr(new, '\n'))
 	{
 		nread = read(fd, buf, BUFFER_SIZE);
 		if (nread <= 0)
 			break ;
-		temp = save;
 		buf[nread] = '\0';
-		save = append_buf(save, buf);
+		temp = new;
+		new = append_buf(new, buf);
 		free(temp);
 	}
 	free(buf);
 	buf = NULL;
 	if (nread < 0)
 		return (NULL);
-	return (save);
+	return (new);
 }
 
 char	*get_line(char const *save)
@@ -112,7 +114,7 @@ char	*get_line(char const *save)
 	return (line);
 }
 
-char	*reset_save(t_list **node, size_t offset)
+char	*set_remains(t_list **node, size_t offset)
 {
 	char	*temp;
 
@@ -122,7 +124,7 @@ char	*reset_save(t_list **node, size_t offset)
 	{
 		free(temp);
 		temp = NULL;
-		free_node(node);
+		del_node(node);
 		return (NULL);
 	}
 	ft_strlcpy((*node)->save, temp + offset, ft_strlen(temp + offset) + 1);
