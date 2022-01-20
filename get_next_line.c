@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:29:33 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/20 08:24:19 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/20 09:03:21 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*get_next_line(int fd)
 		s_save = NULL;
 		return (NULL);
 	}
-	if (set_remains(&s_save, ft_strlen(line)) == NULL)
+	if (set_remains(&s_save, ft_strlen(line)) == false)
 		return (NULL);
 	return (line);
 }
@@ -87,7 +87,7 @@ char	*get_line(char const *s_save)
 	return (line);
 }
 
-char	*set_remains(char **s_save, size_t offset)
+bool	set_remains(char **s_save, size_t offset)
 {
 	char	*temp;
 
@@ -97,10 +97,10 @@ char	*set_remains(char **s_save, size_t offset)
 	{
 		free(temp);
 		temp = NULL;
-		return (NULL);
+		return (false);
 	}
 	ft_strlcpy(*s_save, temp + offset, ft_strlen(temp + offset) + 1);
 	free(temp);
 	temp = NULL;
-	return (*s_save);
+	return (true);
 }
