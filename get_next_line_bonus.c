@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:30:30 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/26 12:23:06 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/26 12:32:14 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ char	*get_line(char const *save)
 	ft_strlcpy(line, save, len + 1);
 	return (line);
 }
-
 
 char	*set_remains(char **save, size_t offset)
 {
