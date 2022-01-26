@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:29:33 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/20 09:03:21 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/26 11:56:53 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	s_save = read_iter(s_save, fd);
+	s_save = read_iter(&s_save, fd);
 	if (s_save == NULL || *s_save == '\0')
 	{
 		free(s_save);
@@ -33,12 +33,17 @@ char	*get_next_line(int fd)
 		s_save = NULL;
 		return (NULL);
 	}
-	if (set_remains(&s_save, ft_strlen(line)) == false)
+	s_save = set_remains(&s_save, ft_strlen(line));
+	if (s_save == NULL)
+	{
+		free(s_save);
+		s_save = NULL;
 		return (NULL);
+	}
 	return (line);
 }
 
-char	*read_iter(char *s_save, int fd)
+char	*read_iter(char **s_save, int fd)
 {
 	char		*buf;
 	ssize_t		nread;
@@ -49,7 +54,7 @@ char	*read_iter(char *s_save, int fd)
 	if (buf == NULL)
 		return (NULL);
 	nread = 0;
-	new = s_save;
+	new = *s_save;
 	while (new == NULL || !ft_strchr(new, '\n'))
 	{
 		nread = read(fd, buf, BUFFER_SIZE);
@@ -87,20 +92,15 @@ char	*get_line(char const *s_save)
 	return (line);
 }
 
-bool	set_remains(char **s_save, size_t offset)
+char	*set_remains(char **s_save, size_t offset)
 {
-	char	*temp;
+	char	*new;
 
-	temp = *s_save;
-	*s_save = malloc(ft_strlen(temp + offset) + 1);
-	if (*s_save == NULL)
-	{
-		free(temp);
-		temp = NULL;
-		return (false);
-	}
-	ft_strlcpy(*s_save, temp + offset, ft_strlen(temp + offset) + 1);
-	free(temp);
-	temp = NULL;
-	return (true);
+	new = malloc(ft_strlen(*s_save + offset) + 1);
+	if (new == NULL)
+		return (NULL);
+	ft_strlcpy(new, *s_save + offset, ft_strlen(*s_save + offset) + 1);
+	free(*s_save);
+	*s_save = NULL;
+	return (new);
 }

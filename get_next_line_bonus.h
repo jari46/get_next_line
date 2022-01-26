@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:28:20 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/20 08:30:30 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/26 12:24:33 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ typedef struct s_list
 
 char	*get_next_line(int fd);
 t_list	*get_node(t_list *head, int fd);
-char	*read_iter(char *save, int fd);
+char	*read_iter(char **save, int fd);
 char	*get_line(char const *save);
-bool	set_remains(t_list **node, size_t offset);
+char	*set_remains(char **save, size_t offset);
 void	del_node(t_list **node);
 char	*append_buf(char const *save, char const *buf);
 size_t	ft_strlen(char const *s);

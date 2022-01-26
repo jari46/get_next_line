@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:30:30 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/20 08:30:28 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/26 12:23:06 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_next_line(int fd)
 	node = get_node(&head, fd);
 	if (node == NULL)
 		return (NULL);
-	node->save = read_iter(node->save, fd);
+	node->save = read_iter(&(node->save), fd);
 	if (node->save == NULL || *(node->save) == '\0')
 	{
 		del_node(&node);
@@ -35,8 +35,12 @@ char	*get_next_line(int fd)
 		del_node(&node);
 		return (NULL);
 	}
-	if (set_remains(&node, ft_strlen(line)) == false)
+	node->save = set_remains(&(node->save), ft_strlen(line));
+	if (node->save == NULL)
+	{
+		del_node(&node);
 		return (NULL);
+	}
 	return (line);
 }
 
@@ -65,7 +69,7 @@ t_list	*get_node(t_list *head, int fd)
 	return (node);
 }
 
-char	*read_iter(char *save, int fd)
+char	*read_iter(char **save, int fd)
 {
 	char	*buf;
 	ssize_t	nread;
@@ -76,7 +80,7 @@ char	*read_iter(char *save, int fd)
 	if (buf == NULL)
 		return (NULL);
 	nread = 0;
-	new = save;
+	new = *save;
 	while (new == NULL || !ft_strchr(new, '\n'))
 	{
 		nread = read(fd, buf, BUFFER_SIZE);
@@ -114,21 +118,16 @@ char	*get_line(char const *save)
 	return (line);
 }
 
-bool	set_remains(t_list **node, size_t offset)
-{
-	char	*temp;
 
-	temp = (*node)->save;
-	(*node)->save = malloc(ft_strlen(temp + offset) + 1);
-	if ((*node)->save == NULL)
-	{
-		free(temp);
-		temp = NULL;
-		del_node(node);
-		return (false);
-	}
-	ft_strlcpy((*node)->save, temp + offset, ft_strlen(temp + offset) + 1);
-	free(temp);
-	temp = NULL;
-	return (true);
+char	*set_remains(char **save, size_t offset)
+{
+	char	*new;
+
+	new = malloc(ft_strlen(*save + offset) + 1);
+	if (new == NULL)
+		return (NULL);
+	ft_strlcpy(new, *save + offset, ft_strlen(*save + offset) + 1);
+	free(*save);
+	*save = NULL;
+	return (new);
 }
