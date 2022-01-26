@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:30:30 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/26 12:32:14 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/26 14:31:23 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_next_line(int fd)
 	if (node == NULL)
 		return (NULL);
 	node->save = read_iter(&(node->save), fd);
-	if (node->save == NULL || *(node->save) == '\0')
+	if (node->save == NULL)
 	{
 		del_node(&node);
 		return (NULL);
@@ -78,7 +78,11 @@ char	*read_iter(char **save, int fd)
 
 	buf = malloc(BUFFER_SIZE + 1);
 	if (buf == NULL)
+	{
+		free(*save);
+		*save = NULL;
 		return (NULL);
+	}
 	nread = 0;
 	new = *save;
 	while (new == NULL || !ft_strchr(new, '\n'))
@@ -93,8 +97,12 @@ char	*read_iter(char **save, int fd)
 	}
 	free(buf);
 	buf = NULL;
-	if (nread < 0)
+	if (nread < 0 || new == NULL || *new == '\0')
+	{
+		free(new);
+		new = NULL;
 		return (NULL);
+	}
 	return (new);
 }
 

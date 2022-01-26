@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:29:33 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/26 11:56:53 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/26 14:31:21 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,8 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	s_save = read_iter(&s_save, fd);
-	if (s_save == NULL || *s_save == '\0')
-	{
-		free(s_save);
-		s_save = NULL;
+	if (s_save == NULL)
 		return (NULL);
-	}
 	line = get_line(s_save);
 	if (line == NULL)
 	{
@@ -35,11 +31,7 @@ char	*get_next_line(int fd)
 	}
 	s_save = set_remains(&s_save, ft_strlen(line));
 	if (s_save == NULL)
-	{
-		free(s_save);
-		s_save = NULL;
 		return (NULL);
-	}
 	return (line);
 }
 
@@ -52,7 +44,11 @@ char	*read_iter(char **s_save, int fd)
 
 	buf = malloc(BUFFER_SIZE + 1);
 	if (buf == NULL)
+	{
+		free(*s_save);
+		*s_save = NULL;
 		return (NULL);
+	}
 	nread = 0;
 	new = *s_save;
 	while (new == NULL || !ft_strchr(new, '\n'))
@@ -67,8 +63,12 @@ char	*read_iter(char **s_save, int fd)
 	}
 	free(buf);
 	buf = NULL;
-	if (nread < 0)
+	if (nread < 0 || new == NULL || *new == '\0')
+	{
+		free(new);
+		new = NULL;
 		return (NULL);
+	}
 	return (new);
 }
 
@@ -98,7 +98,11 @@ char	*set_remains(char **s_save, size_t offset)
 
 	new = malloc(ft_strlen(*s_save + offset) + 1);
 	if (new == NULL)
+	{
+		free(*s_save);
+		*s_save = NULL;
 		return (NULL);
+	}
 	ft_strlcpy(new, *s_save + offset, ft_strlen(*s_save + offset) + 1);
 	free(*s_save);
 	*s_save = NULL;
