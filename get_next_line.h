@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:23:54 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/26 12:30:29 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/26 12:35:11 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdbool.h>
 
 char	*get_next_line(int fd);
 char	*read_iter(char **s_save, int fd);

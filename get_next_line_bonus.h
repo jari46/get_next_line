@@ -6,7 +6,7 @@
 /*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:28:20 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/26 12:24:33 by yehan            ###   ########.fr       */
+/*   Updated: 2022/01/26 12:35:10 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdbool.h>
 
 typedef struct s_list
 {
