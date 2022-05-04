@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: yehan <yehan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:23:54 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/26 12:35:11 by yehan            ###   ########.fr       */
+/*   Updated: 2022/05/04 11:03:14 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+
+# define BUFFER_SIZE 1000
 
 char	*get_next_line(int fd);
 char	*read_iter(char **s_save, int fd);

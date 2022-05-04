@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: yehan <yehan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:28:20 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/26 12:35:10 by yehan            ###   ########.fr       */
+/*   Updated: 2022/05/04 11:05:25 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-char	*get_next_line(int fd);
+# define BUFFER_SIZE 1000
+
+char	*get_next_line_bonus(int fd);
 t_list	*get_node(t_list *head, int fd);
 char	*read_iter(char **save, int fd);
 char	*get_line(char const *save);

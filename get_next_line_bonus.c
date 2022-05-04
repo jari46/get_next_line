@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yehan <yehan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: yehan <yehan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 20:30:30 by yehan             #+#    #+#             */
-/*   Updated: 2022/01/26 14:31:23 by yehan            ###   ########.fr       */
+/*   Updated: 2022/05/04 11:04:46 by yehan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*get_next_line(int fd)
+char	*get_next_line_bonus(int fd)
 {
 	static t_list	head;
 	t_list			*node;
